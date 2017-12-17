@@ -1,5 +1,6 @@
 (ns mpd-web-gui.components.ui.current-playlist
   (:require [rum.core :as rum]
+            [mpd-web-gui.api :as api]
             [mpd-web-gui.core :refer [app-state]]))
 
 (defn songs [state]
@@ -22,5 +23,9 @@
 
 (rum/defc current-playlist < rum/reactive []
   [:div
-   {:class "current-playlist list-group"}
-   (map song-element (songs (rum/react app-state)))])
+   [:button {:class "btn btn-outline-danger"
+             :on-click api/clear-queue}
+    "Очистить"]
+   [:div
+    {:class "current-playlist list-group"}
+    (map song-element (songs (rum/react app-state)))]])

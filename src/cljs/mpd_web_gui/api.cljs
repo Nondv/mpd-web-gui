@@ -38,3 +38,6 @@
 
 (defn add-to-queue [files]
   (make-request "add_to_queue" {:files files} log-response))
+
+(defn clear-queue []
+  (make-request "clear_queue" log-response))
