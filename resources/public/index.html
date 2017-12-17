@@ -1,12 +1,15 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <div class='container'>
+      <div id="app"></div>
+    </div>
     <script src="js/compiled/mpd_web_gui.js" type="text/javascript"></script>
     <script type="text/javascript">mpd_web_gui.system.go();</script>
   </body>
