@@ -47,6 +47,9 @@
               :value (file-filter)
               :placeholder "Поиск"
               :on-change #(set-file-filter(.. % -target -value))}]
+     [:button {:class "btn btn-primary"
+               :on-click #(api/add-to-queue (filtered-files))}
+      "Добавить все (с учетом фильтра)"]
      [:div
       {:class "files-list list-group"}
       (map render-file (take 500 (filtered-files)))]]))
