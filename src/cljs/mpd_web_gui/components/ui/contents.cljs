@@ -26,7 +26,7 @@
   (rum/react app-state)
   [:div
    [:ul
-    {:class "nav nav-pills"}
+    {:class "nav nav-pills mb-3"}
     (render-pill "Очередь" :current-playlist)
     (render-pill "Файлы" :files)
     (render-pill "TODO" :todo)]

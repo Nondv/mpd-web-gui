@@ -7,6 +7,6 @@
 
 (rum/defc root []
   [:div
-   (now-playing)
-   (controls)
+   [:div {:class "mb-1"} (now-playing)]
+   [:div {:class "mb-5"} (controls)]
    (contents)])
