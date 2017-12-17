@@ -2,6 +2,7 @@
   (:require [rum.core :as rum]
             [mpd-web-gui.components.ui.now-playing :refer [now-playing]]
             [mpd-web-gui.components.ui.control-button :refer [control-button]]
+            [mpd-web-gui.api :as api]
             [mpd-web-gui.core :refer [app-state]]))
 
 (defn onclick-dummy []
@@ -14,4 +15,4 @@
     (control-button "media-skip-backward" onclick-dummy)
     (control-button "media-pause" onclick-dummy)
     (control-button "media-play" onclick-dummy)
-    (control-button "media-skip-forward" onclick-dummy)]])
+    (control-button "media-skip-forward" api/play-next)]])
