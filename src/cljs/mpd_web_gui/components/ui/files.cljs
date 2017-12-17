@@ -9,6 +9,9 @@
    (fn [response]
      (swap! app-state #(assoc % :files (:files response))))))
 
+(defn set-file-filter [v]
+  (swap! app-state #(assoc % :file-filter v)))
+
 (defn wrap-state [f]
   (fn [state]
     (f)
@@ -20,15 +23,30 @@
    (control-button "plus" {:size :small} #(api/add-to-queue filename))
    filename])
 
+(defn file-filter []
+  (:file-filter @app-state ""))
+
+(defn filtered-files []
+  (let [all-files (:files @app-state [])
+        lc #(clojure.string/lower-case %)]
+    (if (< 3 (count (file-filter)))
+      (filter #(clojure.string/includes? (lc %) (lc (file-filter))) all-files)
+      all-files)))
+
+
 (rum/defc files <
   rum/reactive
   {:did-mount (wrap-state load-files)}
   []
 
-  (let [files (:files (rum/react app-state) [])]
+  (let [files (:files (rum/react app-state))]
     [:div
      [:div "Всего: " (count files)]
      [:div "Отображается: " (min (count files) 500)]
+     [:input {:class     "form-control"
+              :value (file-filter)
+              :placeholder "Поиск"
+              :on-change #(set-file-filter(.. % -target -value))}]
      [:div
       {:class "files-list list-group"}
-      (map render-file (take 500 files))]]))
+      (map render-file (take 500 (filtered-files)))]]))
