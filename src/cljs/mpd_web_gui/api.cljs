@@ -44,3 +44,9 @@
 
 (defn set-volume [v]
   (make-request "set_volume" {:value v} log-response))
+
+(defn playlists [handler]
+  (make-request "playlists" handler))
+
+(defn load-playlist [name]
+  (make-request "load_playlist" {:name name} log-response))

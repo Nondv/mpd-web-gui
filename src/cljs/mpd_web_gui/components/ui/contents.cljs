@@ -2,6 +2,7 @@
   (:require [rum.core :as rum]
             [mpd-web-gui.components.ui.current-playlist :refer [current-playlist]]
             [mpd-web-gui.components.ui.files :refer [files]]
+            [mpd-web-gui.components.ui.playlists :refer [playlists]]
             [mpd-web-gui.core :refer [app-state]]))
 
 (defn current-tab []
@@ -29,8 +30,10 @@
     {:class "nav nav-pills mb-3"}
     (render-pill "Очередь" :current-playlist)
     (render-pill "Файлы" :files)
+    (render-pill "Плейлисты" :playlists)
     (render-pill "TODO" :todo)]
    (case (current-tab)
      :current-playlist (current-playlist)
      :files (files)
+     :playlists (playlists)
      nil)])
