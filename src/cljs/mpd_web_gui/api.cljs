@@ -4,7 +4,7 @@
 (defn make-request
   ([action handler] (make-request action {} handler))
   ([action params handler]
-   (ajax/POST "http://192.168.0.14:6789"
+   (ajax/POST "http://localhost:6789"
               {:response-format (ajax/json-response-format {:keywords? true})
                :format (ajax/json-request-format)
                :params  (assoc params :action action)
