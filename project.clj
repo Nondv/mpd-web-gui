@@ -65,7 +65,7 @@
                            :output-to "resources/public/js/compiled/mpd_web_gui.js"
                            :output-dir "target"
                            :source-map-timestamp true
-                           :optimizations :advanced
+                           :optimizations :whitespace
                            :pretty-print false}}]}
 
   ;; When running figwheel from nREPL, figwheel will read this configuration
