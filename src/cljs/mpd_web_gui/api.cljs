@@ -1,10 +1,13 @@
 (ns mpd-web-gui.api
   (:require [ajax.core :as ajax]))
 
+(def endpoint
+  (str "http://" (.-hostname js/location) ":" 6789))
+
 (defn make-request
   ([action handler] (make-request action {} handler))
   ([action params handler]
-   (ajax/POST "http://localhost:6789"
+   (ajax/POST endpoint
               {:response-format (ajax/json-response-format {:keywords? true})
                :format (ajax/json-request-format)
                :params  (assoc params :action action)
