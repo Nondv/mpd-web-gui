@@ -13,6 +13,6 @@
    (now-playing)
    [:div
     (control-button "media-skip-backward" api/play-previous)
-    (control-button "media-pause" onclick-dummy)
+    (control-button "media-pause" api/pause)
     (control-button "media-play" #(api/play))
     (control-button "media-skip-forward" api/play-next)]])
