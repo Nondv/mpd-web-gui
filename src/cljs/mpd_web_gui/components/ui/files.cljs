@@ -2,7 +2,7 @@
   (:require [rum.core :as rum]
             [mpd-web-gui.api :as api]
             [mpd-web-gui.components.ui.control-button :refer [control-button]]
-            [mpd-web-gui.core :refer [app-state]]))
+            [mpd-web-gui.core :refer [app-state wrap-state]]))
 
 (defn load-files []
   (api/files
@@ -11,11 +11,6 @@
 
 (defn set-file-filter [v]
   (swap! app-state #(assoc % :file-filter v)))
-
-(defn wrap-state [f]
-  (fn [state]
-    (f)
-    state))
 
 (defn render-file [filename]
   [:div

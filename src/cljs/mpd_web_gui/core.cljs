@@ -21,3 +21,10 @@
 
 (defonce update-current-playlist-interval-id
   (js/setInterval #(update-current-playlist) 5000))
+
+(defn wrap-state
+  "For wrapping rum middlewares that do not update state"
+  [f]
+  (fn [state]
+    (f)
+    state))
