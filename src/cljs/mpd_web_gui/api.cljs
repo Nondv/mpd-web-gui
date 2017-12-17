@@ -50,3 +50,6 @@
 
 (defn load-playlist [name]
   (make-request "load_playlist" {:name name} log-response))
+
+(defn save-playlist [name handler]
+  (make-request "save_playlist" {:name name} handler))
