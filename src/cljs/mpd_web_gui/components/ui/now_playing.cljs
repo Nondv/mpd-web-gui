@@ -4,7 +4,7 @@
 
 
 (defn current-song [state]
-  (get-in state [:status :current-song]))
+  (get-in state [:status :currentSong]))
 
 (defn title [state]
   (:title (current-song state)))

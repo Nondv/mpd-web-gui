@@ -1,14 +1,15 @@
 (ns mpd-web-gui.core
-  (:require [rum.core :as rum]))
+  (:require [mpd-web-gui.api :as api]
+            [rum.core :as rum]))
 
 (enable-console-print!)
 
-(def initial-state
-  {:text "Hello Chestnut!"
-   :status {:current-song {:artist "12 Stones"
-                           :title "The Way I Feel"
-                           :album "12 Stones"
-                           :id "3687"
-                           :position "2"}}})
+(defonce app-state (atom {}))
 
-(defonce app-state (atom initial-state))
+(defn update-status []
+  (api/status
+   (fn [data]
+     (swap! app-state #(assoc % :status data)))))
+
+(defonce update-status-interval-id
+  (js/setInterval #(update-status) 2000))
