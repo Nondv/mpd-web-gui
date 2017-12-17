@@ -4,7 +4,16 @@
 (defn icon-class [icon]
   (str "oi oi-" icon))
 
-(rum/defc control-button [icon on-click]
-  [:button {:class "btn btn-outline-dark btn-lg"
-            :on-click on-click}
-   [:span {:class (icon-class icon)}]])
+(defn button-class [options]
+  ["btn btn-outline-dark"
+   (case (:size options)
+     :large "btn-lg"
+     :small "btn-sm"
+     nil)])
+
+(rum/defc control-button
+  ([icon on-click] (control-button icon {:size :large} on-click))
+  ([icon options on-click]
+   [:button {:class (button-class options)
+             :on-click on-click}
+    [:span {:class (icon-class icon)}]]))
