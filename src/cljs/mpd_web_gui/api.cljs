@@ -41,3 +41,6 @@
 
 (defn clear-queue []
   (make-request "clear_queue" log-response))
+
+(defn set-volume [v]
+  (make-request "set_volume" {:value v} log-response))
