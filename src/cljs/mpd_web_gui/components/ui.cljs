@@ -1,6 +1,11 @@
 (ns mpd-web-gui.components.ui
   (:require [com.stuartsierra.component :as component]
-            [mpd-web-gui.core :refer [render]]))
+            [rum.core :as rum]
+
+            [mpd-web-gui.components.ui.root :refer [root]]))
+
+(defn render []
+  (rum/mount (root) (. js/document (getElementById "app"))))
 
 (defrecord UIComponent []
   component/Lifecycle
