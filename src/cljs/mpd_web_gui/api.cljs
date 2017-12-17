@@ -24,3 +24,12 @@
               :format (ajax/json-request-format)
               :params  {:action "previous"}
               :handler log-response}))
+
+(defn play
+  ([] (play nil))
+  ([position]
+   (ajax/POST "http://192.168.0.14:6789"
+              {:response-format (ajax/json-response-format {:keywords? true})
+               :format (ajax/json-request-format)
+               :params  {:action "play" :position position}
+               :handler log-response})))
