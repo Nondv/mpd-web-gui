@@ -6,7 +6,9 @@
   (get-in state [:current-playlist] []))
 
 (defn song-label [song]
-  (str (:artist song) " - " (:title song)))
+  (if (or (:artist song) (:title song))
+    (str (:artist song) " - " (:title song))
+    (:file song)))
 
 (defn now-playing-position []
   (get-in @app-state [:status :currentSong :position]))
