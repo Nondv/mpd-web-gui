@@ -32,3 +32,6 @@
 
 (defn current-playlist [handler]
   (make-request "queue" handler))
+
+(defn files [handler]
+  (make-request "files" handler))
