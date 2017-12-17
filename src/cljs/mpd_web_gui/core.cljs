@@ -11,5 +11,13 @@
    (fn [data]
      (swap! app-state #(assoc % :status data)))))
 
+(defn update-current-playlist []
+  (api/current-playlist
+   (fn [data]
+     (swap! app-state #(assoc % :current-playlist data)))))
+
 (defonce update-status-interval-id
   (js/setInterval #(update-status) 2000))
+
+(defonce update-current-playlist-interval-id
+  (js/setInterval #(update-current-playlist) 5000))

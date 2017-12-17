@@ -29,3 +29,6 @@
   ([] (play nil))
   ([position]
    (make-request "play" {:position position} log-response)))
+
+(defn current-playlist [handler]
+  (make-request "queue" handler))
