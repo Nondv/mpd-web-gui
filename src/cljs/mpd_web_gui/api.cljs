@@ -53,3 +53,6 @@
 
 (defn save-playlist [name handler]
   (make-request "save_playlist" {:name name} handler))
+
+(defn delete-playlist [name handler]
+  (make-request "delete_playlist" {:name name} handler))

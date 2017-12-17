@@ -13,7 +13,8 @@
   [:div
    {:key name :class "list-group-item"}
    (control-button "plus" {:size :small} #(api/load-playlist name))
-   name])
+   (control-button "trash" {:size :small} #(api/delete-playlist name load-playlists))
+   [:span {:class "ml-2"} name]])
 
 (defn on-playlist-save [e]
   (.preventDefault e)
