@@ -16,6 +16,7 @@
                  [com.stuartsierra/component "0.3.2"]
                  [org.danielsz/system "0.4.0"]
                  [org.clojure/tools.namespace "0.2.11"]
+                 [cljs-ajax "0.7.2"]
                  [rum "0.10.8"]]
 
   :plugins [[lein-cljsbuild "1.1.6"]
