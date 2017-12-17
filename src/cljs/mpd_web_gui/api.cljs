@@ -35,3 +35,6 @@
 
 (defn files [handler]
   (make-request "files" handler))
+
+(defn add-to-queue [files]
+  (make-request "add_to_queue" {:files files} log-response))

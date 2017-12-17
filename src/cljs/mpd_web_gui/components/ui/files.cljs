@@ -17,6 +17,7 @@
 (defn render-file [filename]
   [:div
    {:key filename :class "list-group-item"}
+   (control-button "plus" {:size :small} #(api/add-to-queue filename))
    filename])
 
 (rum/defc files <
