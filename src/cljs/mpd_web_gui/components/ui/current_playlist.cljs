@@ -3,9 +3,6 @@
             [mpd-web-gui.api :as api]
             [mpd-web-gui.core :refer [app-state]]))
 
-(defn songs [state]
-  (get-in state [:current-playlist] []))
-
 (defn song-label [song]
   (if (or (:artist song) (:title song))
     (str (:artist song) " - " (:title song))
@@ -38,15 +35,39 @@
       (.scrollIntoView element true))
     (assoc state :last-position current-position)))
 
+(defn current-playlist-filter []
+  (:current-playlist-filter @app-state ""))
+
+(defn set-current-playlist-filter [v]
+  (swap! app-state #(assoc % :current-playlist-filter v)))
+
+(defn song-matches-filter? [song]
+  (clojure.string/includes?
+   (clojure.string/lower-case (song-label song))
+   (clojure.string/lower-case (current-playlist-filter))))
+
+(defn filtered-songs []
+  (let [all-songs (:current-playlist @app-state [])]
+    (if (< 3 (count (current-playlist-filter)))
+      (filter song-matches-filter? all-songs)
+      all-songs)))
+
 (rum/defc current-playlist <
   rum/reactive
   {:did-update move-to-song}
   []
 
+  (rum/react app-state)
   [:div
    [:button {:class "btn btn-outline-danger"
              :on-click api/clear-queue}
     "Очистить"]
+
+   [:input {:class "form-control my-2"
+            :value (current-playlist-filter)
+            :placeholder "Поиск"
+            :on-change #(set-current-playlist-filter(.. % -target -value))}]
+
    [:div
     {:class "current-playlist list-group"}
-    (map song-element (songs (rum/react app-state)))]])
+    (map song-element (filtered-songs))]])
