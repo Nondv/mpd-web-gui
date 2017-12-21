@@ -5,6 +5,8 @@
 (enable-console-print!)
 
 (defonce app-state (atom {}))
+(defonce playlist (atom []))
+(defonce current-playlist-filter (atom ""))
 
 (defn update-status []
   (api/status
@@ -12,9 +14,7 @@
      (swap! app-state #(assoc % :status data)))))
 
 (defn update-current-playlist []
-  (api/current-playlist
-   (fn [data]
-     (swap! app-state #(assoc % :current-playlist data)))))
+  (api/current-playlist #(reset! playlist %)))
 
 (defonce update-status-interval-id
   (js/setInterval #(update-status) 2000))
