@@ -18,10 +18,29 @@
   (str "list-group-item list-group-item-action"
        (when (= (:position song) (now-playing-position)) " active")))
 
-(defn song-element [song]
-  [:div {:key (:id song) :class (song-element-class song)} (song-label song)])
+(defn song-element-id [position]
+  (str "song-" position))
 
-(rum/defc current-playlist < rum/reactive []
+(defn song-element [song]
+  [:div
+   {:key (:id song)
+    :id (song-element-id  (:position song))
+    :class (song-element-class song)}
+   (song-label song)])
+
+(defn move-to-song [state]
+  (let [last-position (:last-position state)
+        current-position (now-playing-position)
+        element (js/document.getElementById (song-element-id current-position))]
+    (when (and element (not= current-position last-position))
+      (.scrollIntoView element true))
+    (assoc state :last-position current-position)))
+
+(rum/defc current-playlist <
+  rum/reactive
+  {:did-update move-to-song}
+  []
+
   [:div
    [:button {:class "btn btn-outline-danger"
              :on-click api/clear-queue}
