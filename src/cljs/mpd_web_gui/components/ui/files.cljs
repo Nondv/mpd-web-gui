@@ -2,15 +2,13 @@
   (:require [rum.core :as rum]
             [mpd-web-gui.api :as api]
             [mpd-web-gui.components.ui.control-button :refer [control-button]]
-            [mpd-web-gui.core :refer [app-state wrap-state]]))
+            [mpd-web-gui.core :refer [file-uris file-filter wrap-state]]))
 
 (defn load-files []
-  (api/files
-   (fn [response]
-     (swap! app-state #(assoc % :files (:files response))))))
+  (api/files #(reset! file-uris (:files %))))
 
 (defn set-file-filter [v]
-  (swap! app-state #(assoc % :file-filter v)))
+  (reset! file-filter v))
 
 (defn render-file [filename]
   [:div
@@ -18,33 +16,32 @@
    (control-button "plus" {:size :small} #(api/add-to-queue filename))
    filename])
 
-(defn file-filter []
-  (:file-filter @app-state ""))
-
 (defn filtered-files []
-  (let [all-files (:files @app-state [])
+  (let [all-files @file-uris
         lc #(clojure.string/lower-case %)]
-    (if (< 3 (count (file-filter)))
-      (filter #(clojure.string/includes? (lc %) (lc (file-filter))) all-files)
+    (if (< 3 (count @file-filter))
+      (filter #(clojure.string/includes? (lc %) (lc @file-filter)) all-files)
       all-files)))
-
 
 (rum/defc files <
   rum/reactive
   {:did-mount (wrap-state load-files)}
   []
 
-  (let [files (:files (rum/react app-state))]
+  (rum/react file-uris)
+  (rum/react file-filter)
+
+  (let [f-files (filtered-files)]
     [:div
-     [:div "Всего: " (count files)]
-     [:div "Отображается: " (min (count files) 500)]
+     [:div "Всего: " (count f-files)]
+     [:div "Отображается: " (min (count f-files) 500)]
      [:input {:class     "form-control"
-              :value (file-filter)
+              :value @file-filter
               :placeholder "Поиск"
               :on-change #(set-file-filter(.. % -target -value))}]
      [:button {:class "btn btn-primary"
-               :on-click #(api/add-to-queue (filtered-files))}
+               :on-click #(api/add-to-queue f-files)}
       "Добавить все (с учетом фильтра)"]
      [:div
       {:class "files-list list-group"}
-      (map render-file (take 500 (filtered-files)))]]))
+      (map render-file (take 500 f-files))]]))

@@ -7,6 +7,8 @@
 (defonce app-state (atom {}))
 (defonce playlist (atom []))
 (defonce current-playlist-filter (atom ""))
+(defonce file-uris (atom []))
+(defonce file-filter (atom ""))
 
 (defn update-status []
   (api/status
