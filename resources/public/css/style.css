@@ -3,6 +3,11 @@
     overflow-y: auto;
 }
 
+.current-playlist__song-label {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .files-list {
     max-height: 400px;
     overflow-y: auto;

@@ -26,7 +26,9 @@
    {:key (:id song)
     :id (song-element-id  (:position song))
     :class (song-element-class song)}
-   (song-label song)])
+   [:span
+    {:class "current-playlist__song-label", :on-click #(api/play (:position song))}
+    (song-label song)]])
 
 (defn move-to-song [state]
   (let [last-position (:last-position state)
