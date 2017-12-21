@@ -10,6 +10,7 @@
   (rum/react app-state)
 
   [:div
+   {:class "d-inline-block"}
    [:div
     (control-button "media-skip-backward" api/play-previous)
     (control-button "media-pause" api/pause)
@@ -17,7 +18,7 @@
     (control-button "media-skip-forward" api/play-next)]
 
    [:div
-    {:class "mb-4"}
+    {:class ["mb-3" "d-flex justify-content-between"]}
     (state-switch "random" {:active (get-in @app-state [:status :random])} api/toggle-random)
     (state-switch "loop" {:active (get-in @app-state [:status :repeat])} api/toggle-repeat)]
 

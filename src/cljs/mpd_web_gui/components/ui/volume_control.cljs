@@ -25,5 +25,5 @@
   [state]
   (rum/react app-state)
   [:div
-   [:input {:id "volume-control"}]
-   [:span {:class "ml-2"} (current-volume)]])
+   [:div (str "Volume: " (current-volume))]
+   [:input {:id "volume-control"}]])
