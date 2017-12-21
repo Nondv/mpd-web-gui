@@ -1,9 +1,9 @@
 .current-playlist {
-    max-height: 600px;
+    max-height: 400px;
     overflow-y: auto;
 }
 
 .files-list {
-    max-height: 600px;
+    max-height: 400px;
     overflow-y: auto;
 }
