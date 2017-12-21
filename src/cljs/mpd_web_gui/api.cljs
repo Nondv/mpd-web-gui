@@ -59,3 +59,9 @@
 
 (defn delete-playlist [name handler]
   (make-request "delete_playlist" {:name name} handler))
+
+(defn toggle-random []
+  (make-request "random" log-response))
+
+(defn toggle-repeat []
+  (make-request "repeat" log-response))
